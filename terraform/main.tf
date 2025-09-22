@@ -43,8 +43,9 @@ module "route53" {
 module "ec2" {
     source = "./modules/ec2"
     env_name = var.env_name
-    webserver_ec2_instance_type = "m7a.large"
+    webserver_ec2_instance_type = "t3.micro"
     ec2_sg = module.security_groups.webserver_sg_id
     private_subnet_ids = module.vpc.private_subnet_ids
     webserver_tg_arn = module.alb.webserver_tg_arn
+    create_asg_service_linked_role = false
 }

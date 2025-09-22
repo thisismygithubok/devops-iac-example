@@ -6,7 +6,7 @@ resource "aws_lb" "public_lb" {
     internal = false
     load_balancer_type = "application"
     security_groups = [var.alb_sg]
-    subnets = [for subnet in var.public_subnets : subnet.id]
+    subnets = var.public_subnets
 }
 
 # ALB - Target Group

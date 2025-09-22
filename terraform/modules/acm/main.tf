@@ -2,7 +2,8 @@
 
 # Generate Private Key
 resource "tls_private_key" "private_key_ed25519" {
-    algorithm = "ED25519"
+    algorithm = "RSA"
+    rsa_bits = 2048
 }
 
 # Generate Self-Signed Cert

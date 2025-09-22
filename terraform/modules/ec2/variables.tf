@@ -22,3 +22,9 @@ variable "webserver_tg_arn" {
     description = "ARN of the WebServer TG"
     type = string
 }
+
+variable "create_asg_service_linked_role" {
+    description = "Whether or not to create the AWS ASG service-linked role (only needed on fresh account deployment)"
+    type = bool
+    default = true
+}

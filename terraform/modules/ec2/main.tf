@@ -22,22 +22,19 @@ resource "aws_launch_template" "webserver_launch_template" {
     image_id = data.aws_ami.amazon_linux_2023.id
     instance_type = var.webserver_ec2_instance_type
 
-    block_device_mappings {
-        device_name = "/dev/sdb"
-        
-        ebs {
-            volume_type = "gp3"
-            delete_on_termination = true
-        }
-    }
-
     network_interfaces {
         security_groups = [var.ec2_sg]
     }
 }
 
+# Service linked role for ASG
+resource "aws_iam_service_linked_role" "asg_service_role" {
+    aws_service_name = "autoscaling.amazonaws.com"
+    count = var.create_asg_service_linked_role ? 1 : 0
+}
+
 # Auto Scaling Group
-resource "aws_autoscaling_group" "webserver_asg" {
+resource "aws_autoscaling_group" "webserver_asg" {    
     name = "${var.env_name}-webserver-asg"
     vpc_zone_identifier = var.private_subnet_ids
     target_group_arns = [var.webserver_tg_arn]

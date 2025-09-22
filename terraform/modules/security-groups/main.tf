@@ -42,7 +42,7 @@ resource "aws_security_group" "webserver_sg" {
 
     ingress {
         description = "Allow HTTP from ALB SG Only"
-        security_groups = [aws_security_group.alb_sg]
+        security_groups = [aws_security_group.alb_sg.id]
         protocol = "tcp"
         from_port = 80
         to_port = 80
