@@ -1,5 +1,5 @@
 # TMGM DevOps Challenge v3
-This is the necessary terraform for the TMGM DevOps Challenge v3
+This is the necessary code for the TMGM DevOps Challenge v3
 
 ## Basic Goals
 
