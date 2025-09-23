@@ -5,13 +5,13 @@ This is the necessary code for the TMGM DevOps Challenge v3
 
 ### Terraform Code
 This is written in a way where infrastructure is grouped into modules for easy management and reusability.
-- **./modules/\*** - contains all modules needed to deploy the infra for this publicly accessible, highly secure, high-availability web service.
-- **./envs/\*** - contains prod.tfvars file for deployment. Can easily add other envs.
-- **./providers.tf** - The AWS and TLS providers needed for these deployments.
-- **./versions.tf** - The required provider source/versions and terraform version.
-- **./main.tf** - The main terraform file being applied - utilises modules for easy readability and maintenance.
-- **./variables.tf** - Any repeated static variables that would likely change between environments - can be "managed" via .tfvars files per environment.
-- **./locals.tf** - Any repeated static variables that would likely **NOT** change between environments.
+- **[./modules/\*](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules)** - contains all modules needed to deploy the infra for this publicly accessible, highly secure, high-availability web service.
+- **[./envs/\*](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/envs)** - contains prod.tfvars file for deployment. Can easily add other envs.
+- **[./providers.tf](https://github.com/thisismygithubok/tmgm-devops-challenge/blob/main/terraform/providers.tf)** - The AWS and TLS providers needed for these deployments.
+- **[./versions.tf](https://github.com/thisismygithubok/tmgm-devops-challenge/blob/main/terraform/versions.tf)** - The required provider source/versions and terraform version.
+- **[./main.tf](https://github.com/thisismygithubok/tmgm-devops-challenge/blob/main/terraform/main.tf)** - The main terraform file being applied - utilises modules for easy readability and maintenance.
+- **[./variables.tf](https://github.com/thisismygithubok/tmgm-devops-challenge/blob/main/terraform/variables.tf)** - Any repeated static variables that would likely change between environments - can be "managed" via .tfvars files per environment.
+- **[./locals.tf](https://github.com/thisismygithubok/tmgm-devops-challenge/blob/main/terraform/locals.tf)** - Any repeated static variables that would likely **NOT** change between environments.
 
 ### TF Modules
 - **[vpc](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/vpc)** - Creates the VPC, subnets, IGW, and the private RT. This also creates NAT gateways, RTs, and assocations for the private subnets for the EC2 instances to be able to install packages and deploy the ansible playbook.
