@@ -14,6 +14,7 @@ resource "aws_db_instance" "webserver_db" {
     vpc_security_group_ids = [var.db_sg_id]
     db_subnet_group_name = aws_db_subnet_group.webserver_db.name
     skip_final_snapshot = false
+    final_snapshot_identifier = "${var.env_name}-webserver-db-snapshot-FINAL"
     multi_az = true
 }
 
