@@ -14,14 +14,14 @@ This is written in a way where infrastructure is grouped into modules for easy m
 - **./locals.tf** - Any repeated static variables that would likely **NOT** change between environments.
 
 ### TF Modules
-- **vpc** - Creates the VPC, subnets, IGW, and the private RT. This also creates NAT gateways, RTs, and assocations for the private subnets for the EC2 instances to be able to install packages and deploy the ansible playbook.
-- **security-groups** - Creates the Public/Private SGs and their respective ingress/egress rules.
-- **acm** - Uses TLS for generating the private key & self signed cert - import to ACM.
-- **alb** - Creates the public ALB, TG, and both listeners.
-- **route53** - Creates the R53 hosted zone and both alias records.
-- **ec2** - Grabs the latest AWS Linux 2023 AMI, creates a launch template and ASG, and checks for the ASG service linked role.
+- **[vpc](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/vpc)** - Creates the VPC, subnets, IGW, and the private RT. This also creates NAT gateways, RTs, and assocations for the private subnets for the EC2 instances to be able to install packages and deploy the ansible playbook.
+- **[security-groups](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/security-groups)** - Creates the Public/Private SGs and their respective ingress/egress rules.
+- **[acm](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/acm)** - Uses TLS for generating the private key & self signed cert - import to ACM.
+- **[alb](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/alb)** - Creates the public ALB, TG, and both listeners.
+- **[route53](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/route53)** - Creates the R53 hosted zone and both alias records.
+- **[ec2](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/ec2)** - Grabs the latest AWS Linux 2023 AMI, creates a launch template and ASG, and checks for the ASG service linked role.
     - Also contains a /scripts directory which contains the install.sh script used in the launch template for ansible install, repo clone, and playbook run.
-- **iam** - Creates the necessary IAM role, policy, and instance profile for the webserver access logs to be piped to CloudWatch.
+- **[iam](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/terraform/modules/iam)** - Creates the necessary IAM role, policy, and instance profile for the webserver access logs to be piped to CloudWatch.
 
 ### TF Vars
 - Ideally you don't have tfvars files commited for secrets - but this is commited as it doesn't contain sensitive details and allowed easier deployment testing.
