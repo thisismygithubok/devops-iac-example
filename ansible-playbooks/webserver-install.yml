@@ -20,7 +20,7 @@
         dest: /var/www/html/index.html
 
     - name: enable & start httpd webserver
-      ansible.builtin.dnf:
+      ansible.builtin.systemd:
         name: httpd
         state: started
         enabled: true 
