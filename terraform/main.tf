@@ -56,3 +56,20 @@ module "iam" {
     source = "./modules/iam"
     env_name = var.env_name
 }
+
+# Secrets - Store secrets like username/pass for DB
+module "secrets" {
+    source = "./modules/secrets"
+    env_name = var.env_name
+    db_username = var.db_username
+    db_password = var.db_password
+}
+
+# DB - Creates the RDS MariaDB instance for the webservers
+module "db" {
+    source = "./modules/db"
+    env_name = var.env_name
+    db_webserver_credentials = module.secrets.db_webserver_credentials
+    db_sg_id = module.security_groups.db_sg_id
+    private_subnet_ids = module.vpc.private_subnet_ids
+}

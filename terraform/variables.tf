@@ -29,3 +29,15 @@ variable "availability_zones" {
     description = "AZs for resources"
     default = ["us-east-1a","us-east-1b","us-east-1c"]
 }
+
+variable "db_username" {
+    type = string
+    description = "Webserver DB Username"
+    sensitive = true
+}
+
+variable "db_password" {
+    type = string
+    description = "Webserver DB Password"
+    sensitive = true
+}

@@ -57,3 +57,27 @@ resource "aws_security_group" "webserver_sg" {
         to_port = 0
     }
 }
+
+# DB SG - Allow traffic from WebServer SG
+resource "aws_security_group" "db_sg" {
+    name = "${var.env_name}-db-sg"
+    description = "Allow traffic between DB and WebServer SG"
+    vpc_id = var.vpc_id
+
+    ingress {
+        description = "Allow traffic from WebServer SG Only"
+        security_groups = [aws_security_group.webserver_sg.id]
+        protocol = "tcp"
+        from_port = 3306 # mariaDB
+        to_port = 3306
+    }
+
+    egress {
+        description = "Allow all traffic out"
+        cidr_blocks = ["0.0.0.0/0"]
+        ipv6_cidr_blocks = ["::/0"]
+        protocol = "-1"
+        from_port = 0
+        to_port = 0
+    }
+}
