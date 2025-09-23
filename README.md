@@ -33,10 +33,10 @@ This is written in a way where infrastructure is grouped into modules for easy m
 
 ### Ansible Config Management
 This utilises ansible to install an apache httpd webserver and then deploy a basic html webpage. Accomplishing this did require extending the VPC infra to include NAT gateways and RTs for the private subnets. This is so the EC2 instances had internet access to be able to run the install.sh script, clone the repo, and deploy the ansible playbook.
-- **./ansible-playbooks/\*** - contains the ansible playbooks used to install httpd and the basic webpage, plus the playbook for the CW agent.
-- **./ansible-playbooks/files/** - contains the basic index.html deployed to the httpd server, plus the CW agent config JSON.
+- **[./ansible-playbooks/\*](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/ansible-playbooks)** - contains the ansible playbooks used to install httpd and the basic webpage, plus the playbook for the CW agent.
+- **[./ansible-playbooks/files/](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/ansible-playbooks/files)** - contains the basic index.html deployed to the httpd server, plus the CW agent config JSON.
 
 ### Observability - CloudWatch Logs
 This utilises another ansible playbook to install, copy the desired config, and start the AWS CloudWatch agent. The CloudWatch agent pipes the httpd server access logs to streams in a CW log group. Accomplishing this required creating a new TF module "iam" for the IAM resources which include an IAM role, IAM policy, and instance profile.
-- **./ansible-playbooks/cloudwatch-agent.yml** - the ansible playbook for the CW agent install.
-- **./ansible-playbooks/files/aws-cloudwatch-agent.json** - the json config for the CW agent.
+- **[./ansible-playbooks/cloudwatch-agent.yml](https://github.com/thisismygithubok/tmgm-devops-challenge/blob/main/ansible-playbooks/cloudwatch-agent.yml)** - the ansible playbook for the CW agent install.
+- **[./ansible-playbooks/files/aws-cloudwatch-agent.json](https://github.com/thisismygithubok/tmgm-devops-challenge/blob/main/ansible-playbooks/files/aws-cloudwatch-agent.json)** - the json config for the CW agent.
