@@ -19,5 +19,5 @@ This is written in a way where infrastructure is grouped into modules for easy m
 - **route53** - Creates the R53 hosted zone and both alias records.
 - **ec2** - Grabs the latest AWS Linux 2023 AMI, creates a launch template and ASG, and checks for the ASG service linked role.
 
-## TF Vars
+### TF Vars
 - Ideally you don't have tfvars files commited for secrets - but this is commited as it doesn't contain sensitive details and allowed easier deployment testing.
