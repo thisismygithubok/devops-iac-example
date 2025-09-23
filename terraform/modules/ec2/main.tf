@@ -25,6 +25,9 @@ resource "aws_launch_template" "webserver_launch_template" {
     network_interfaces {
         security_groups = [var.ec2_sg]
     }
+
+    # deploy ansible playbook for webserver & page
+    user_data = filebase64("${path.module}/scripts/install.sh")
 }
 
 # Service linked role for ASG
@@ -41,6 +44,9 @@ resource "aws_autoscaling_group" "webserver_asg" {
     desired_capacity = 3
     min_size = 3
     max_size = 12
+
+    health_check_type = "ELB"
+    health_check_grace_period = 120 # 2 mins
 
     availability_zone_distribution {
         capacity_distribution_strategy = "balanced-best-effort"

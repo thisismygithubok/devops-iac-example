@@ -1,0 +1,26 @@
+# Playbook to install httpd webserver and basic webpage - added into EC2 launch template ../terraform/modules/ec2/main.tf
+- name: update ec2, install httpd server, setup basic html page 
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: update base image packages
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+
+    - name: install httpd for webserver
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+
+    - name: deploy webpage
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+
+    - name: enable & start httpd webserver
+      ansible.builtin.dnf:
+        name: httpd
+        state: started
+        enabled: true 

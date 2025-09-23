@@ -22,7 +22,7 @@ resource "aws_lb_target_group" "webserver_tg" {
         unhealthy_threshold = 2
         interval = 30
         timeout = 5
-        path = "/healthcheck"
+        path = "/"
         matcher = "200"
         protocol = "HTTP"
     }
