@@ -21,6 +21,7 @@ This is written in a way where infrastructure is grouped into modules for easy m
 - **route53** - Creates the R53 hosted zone and both alias records.
 - **ec2** - Grabs the latest AWS Linux 2023 AMI, creates a launch template and ASG, and checks for the ASG service linked role.
     - Also contains a /scripts directory which contains the install.sh script used in the launch template for ansible install, repo clone, and playbook run.
+- **iam** - Creates the necessary IAM role, policy, and instance profile for the webserver access logs to be piped to CloudWatch.
 
 ### TF Vars
 - Ideally you don't have tfvars files commited for secrets - but this is commited as it doesn't contain sensitive details and allowed easier deployment testing.
@@ -32,8 +33,10 @@ This is written in a way where infrastructure is grouped into modules for easy m
 
 ### Ansible Config Management
 This utilises ansible to install an apache httpd webserver and then deploy a basic html webpage. Accomplishing this did require extending the VPC infra to include NAT gateways and RTs for the private subnets. This is so the EC2 instances had internet access to be able to run the install.sh script, clone the repo, and deploy the ansible playbook.
-- **./ansible-playbooks/\*** - contains the ansible playbook used to install httpd and the basic webpage.
-- **./ansible-playbooks/files/** - contains the basic index.html deployed to the httpd server.
+- **./ansible-playbooks/\*** - contains the ansible playbooks used to install httpd and the basic webpage, plus the playbook for the CW agent.
+- **./ansible-playbooks/files/** - contains the basic index.html deployed to the httpd server, plus the CW agent config JSON.
 
 ### Observability - CloudWatch Logs
-
+This utilises another ansible playbook to install, copy the desired config, and start the AWS CloudWatch agent. The CloudWatch agent pipes the httpd server access logs to streams in a CW log group. Accomplishing this required creating a new TF module "iam" for the IAM resources which include an IAM role, IAM policy, and instance profile.
+- **./ansible-playbooks/cloudwatch-agent.yml** - the ansible playbook for the CW agent install.
+- **./ansible-playbooks/files/aws-cloudwatch-agent.json** - the json config for the CW agent.
