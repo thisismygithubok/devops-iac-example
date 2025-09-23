@@ -22,6 +22,10 @@ resource "aws_launch_template" "webserver_launch_template" {
     image_id = data.aws_ami.amazon_linux_2023.id
     instance_type = var.webserver_ec2_instance_type
 
+    iam_instance_profile {
+        name = var.iam_instance_profile_ec2_cw
+    }
+    
     network_interfaces {
         security_groups = [var.ec2_sg]
     }

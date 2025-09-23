@@ -28,3 +28,8 @@ variable "create_asg_service_linked_role" {
     type = bool
     default = true
 }
+
+variable "iam_instance_profile_ec2_cw" {
+    description = "IAM Instance Profile Name for the EC2 CW Role"
+    type = string
+}

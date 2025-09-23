@@ -48,4 +48,11 @@ module "ec2" {
     private_subnet_ids = module.vpc.private_subnet_ids
     webserver_tg_arn = module.alb.webserver_tg_arn
     create_asg_service_linked_role = false
+    iam_instance_profile_ec2_cw = module.iam.iam_instance_profile_ec2_cloudwatch_name
+}
+
+# IAM - Creates IAM role, policy, and instance profile for EC2 CW logging
+module "iam" {
+    source = "./modules/iam"
+    env_name = var.env_name
 }

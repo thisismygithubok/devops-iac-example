@@ -34,3 +34,6 @@ This is written in a way where infrastructure is grouped into modules for easy m
 This utilises ansible to install an apache httpd webserver and then deploy a basic html webpage. Accomplishing this did require extending the VPC infra to include NAT gateways and RTs for the private subnets. This is so the EC2 instances had internet access to be able to run the install.sh script, clone the repo, and deploy the ansible playbook.
 - **./ansible-playbooks/\*** - contains the ansible playbook used to install httpd and the basic webpage.
 - **./ansible-playbooks/files/** - contains the basic index.html deployed to the httpd server.
+
+### Observability - CloudWatch Logs
+
