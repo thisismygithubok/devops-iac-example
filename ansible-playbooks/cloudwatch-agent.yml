@@ -1,0 +1,21 @@
+# Playbook to install and configure the AWS Cloudwatch agent on our EC2 webservers
+- name: install and config AWS CW agent
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: install CW agent
+      ansible.builtin.dnf:
+        name: amazon-cloudwatch-agent
+        state: latest
+    
+    - name: copy CW config
+      ansible.builtin.copy:
+        src: files/aws-cloudwatch-agent.json
+        dest: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+
+    - name: enable & start CW agent
+      ansible.builtin.systemd:
+        name: amazon-cloudwatch-agent
+        state: started
+        enabled: true 

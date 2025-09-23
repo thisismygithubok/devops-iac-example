@@ -9,5 +9,8 @@ dnf install ansible git -y
 # clone repo
 git clone https://github.com/thisismygithubok/tmgm-devops-challenge.git /tmp/git
 
-# run playbook
+# run cloudwatch agent install playbook
+ansible-playbook /tmp/git/ansible-playbooks/cloudwatch-agent.yml
+
+# run webserver install playbook
 ansible-playbook /tmp/git/ansible-playbooks/webserver-install.yml
