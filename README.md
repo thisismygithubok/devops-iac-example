@@ -34,7 +34,7 @@ This is written in a way where infrastructure is grouped into modules for easy m
 ## Additional Challenges
 
 ### Ansible Config Management
-This utilises ansible to install an apache httpd webserver and then deploy a basic html webpage. Accomplishing this did require extending the VPC infra to include NAT gateways and RTs for the private subnets. This is so the EC2 instances had internet access to be able to run the install.sh script, clone the repo, and deploy the ansible playbook.
+This utilises ansible to install an apache httpd webserver and then deploy a basic html webpage. Accomplishing this did require extending the VPC infra to include NAT gateways and RTs for the private subnets. This is so the EC2 instances had internet access to be able to run the install.sh script, clone the repo, and deploy the ansible playbook. **I deployed this via the EC2 launch template as it seemed ideal for making sure the instance was configured properly on launch, especially during scaling events. You definitely could manage this externally using some type of cronjob and the dynamic inventory plugin.**
 - **[./ansible-playbooks/\*](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/ansible-playbooks)** - contains the ansible playbooks used to install httpd and the basic webpage, plus the playbook for the CW agent.
 - **[./ansible-playbooks/files/](https://github.com/thisismygithubok/tmgm-devops-challenge/tree/main/ansible-playbooks/files)** - contains the basic index.html deployed to the httpd server, plus the CW agent config JSON.
 
