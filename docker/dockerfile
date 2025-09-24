@@ -1,0 +1,8 @@
+# Apache httpd Base Image
+FROM httpd:2
+
+# Copy example index.html - same used on EC2 server
+COPY index.html /usr/local/apache2/htdocs/index.html
+
+# Expose only port 80
+EXPOSE 80
