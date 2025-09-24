@@ -2,7 +2,7 @@
 
 # DB Credentials
 resource "aws_secretsmanager_secret" "db_credentials" {
-    name = "${var.env_name}-db-credentials"
+    name = "${var.env_name}-database-credentials"
     description = "DB credentials for the RDS MariaDB instance"
 }
 

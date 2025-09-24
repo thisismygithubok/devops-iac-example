@@ -18,6 +18,11 @@ variable "product_name" {
     description = "Product Name"
 }
 
+variable "release_version" {
+    type = string
+    description = "Release version being deployed"
+}
+
 variable "deploy_region" {
     type = string
     description = "Deployment Region"

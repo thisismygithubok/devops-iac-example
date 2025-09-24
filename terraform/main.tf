@@ -55,6 +55,7 @@ module "ec2" {
 module "iam" {
     source = "./modules/iam"
     env_name = var.env_name
+    product_name = var.product_name
 }
 
 # Secrets - Store secrets like username/pass for DB
@@ -72,4 +73,25 @@ module "db" {
     db_webserver_credentials = module.secrets.db_webserver_credentials
     db_sg_id = module.security_groups.db_sg_id
     private_subnet_ids = module.vpc.private_subnet_ids
+}
+
+# ECR - Creates the ECR repo and lifecycle policy
+module "ecr" {
+    source = "./modules/ecr"
+    product_name = var.product_name
+}
+
+# ECS - Creates the ECS cluster, service, and task definition
+module "ecs" {
+    source = "./modules/ecs"
+    product_name = var.product_name
+    env_name = var.env_name
+    release_version = var.release_version
+    db_sg_id = module.security_groups.db_sg_id
+    ec2_sg = module.security_groups.webserver_sg_id
+    private_subnet_ids = module.vpc.private_subnet_ids
+    ecs_webserver_tg_arn = module.alb.ecs_webserver_tg_arn
+    webserver_ecr_repo_url = module.ecr.webserver_ecr_repo_url
+    webserver_db_connectionstring = module.db.webserver_db_connectionstring
+    iam_role_ecs_task_execution_arn = module.iam.iam_role_ecs_task_execution_arn
 }

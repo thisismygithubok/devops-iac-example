@@ -9,6 +9,11 @@ output "public_alb_dns_zone_id" {
 }
 
 output "webserver_tg_arn" {
-    description = "ARN of the WebServer TG"
+    description = "ARN of the EC2 WebServer TG"
     value = aws_lb_target_group.webserver_tg.arn
+}
+
+output "ecs_webserver_tg_arn" {
+    description = "ARN of the ECS WebServer TG"
+    value = aws_lb_target_group.ecs_webserver_tg.arn
 }

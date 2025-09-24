@@ -58,3 +58,40 @@ resource "aws_lb_listener" "https_forward" {
         target_group_arn = aws_lb_target_group.webserver_tg.arn
     }
 }
+
+# ALB - Target Group - WebServer ECS
+resource "aws_lb_target_group" "ecs_webserver_tg" {
+    name = "${var.env_name}-WebServer-TG-ECS"
+    port = 80
+    protocol = "HTTP"
+    target_type = "ip"
+    vpc_id = var.vpc_id
+
+    health_check {
+        enabled = true
+        healthy_threshold = 2
+        unhealthy_threshold = 2
+        interval = 30
+        timeout = 5
+        path = "/"
+        matcher = "200"
+        protocol = "HTTP"
+    }
+}
+
+# ALB - Listener Rule - WebServer ECS
+resource "aws_lb_listener_rule" "ecs_webserver_rule" {
+    listener_arn = aws_lb_listener.https_forward.arn
+    priority = 1
+
+    action {
+        type = "forward"
+        target_group_arn = aws_lb_target_group.ecs_webserver_tg.arn
+    }
+
+    condition {
+        path_pattern {
+            values = ["/*"]
+        }
+    }
+}
