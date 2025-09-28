@@ -29,6 +29,12 @@ variable "deploy_region" {
     default = "us-east-1"
 }
 
+variable "aws_cli_profile" {
+    type = string
+    description = "AWS CLI Profile Used for Apply"
+    default = "terraform"
+}
+
 variable "availability_zones" {
     type = list
     description = "AZs for resources"

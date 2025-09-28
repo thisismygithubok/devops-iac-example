@@ -1,7 +1,7 @@
 # AWS provider
 provider "aws" {
     region = var.deploy_region
-    profile = "terraform"
+    profile = var.aws_cli_profile
     default_tags {
       tags = {
         Environment = var.env_name

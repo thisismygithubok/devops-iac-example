@@ -1,8 +1,13 @@
 ### AWS Secrets Manager Secrets ###
 
+# Import Random String Gen
+resource "random_uuid" "unique_identifier" {
+    # keepers = {...} - need to find some kind of catch here to monitor to know when to rotate these credentials
+}
+
 # DB Credentials
 resource "aws_secretsmanager_secret" "db_credentials" {
-    name = "${var.env_name}-database-credentials"
+    name = "${var.env_name}-database-credentials-${random_uuid.unique_identifier.result}"
     description = "DB credentials for the RDS MariaDB instance"
 }
 

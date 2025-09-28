@@ -55,3 +55,22 @@ resource "aws_ecr_lifecycle_policy" "webserver" {
 EOF
 }
 
+# WebServer Image Build & Push
+resource "null_resource" "webserver_docker_build_and_push" {
+    triggers = {
+        # rebuild if repo url changes
+        repository_url = aws_ecr_repository.webserver.repository_url
+
+        # fetch hash of docker folder contents to see if rebuild is needed
+        docker_contents_hash = sha256(join("", [for f in fileset("${path.module}/../../../docker", "**") : filesha256("${path.module}/../../../docker/${f}")]))
+    }
+
+    provisioner "local-exec" {
+        command = <<EOT
+            aws ecr get-login-password --region ${var.deploy_region} --profile ${var.aws_cli_profile} | docker login --username AWS --password-stdin ${aws_ecr_repository.webserver.repository_url}
+            docker build --platform linux/amd64 -t webserver:latest -f ${path.module}/../../../docker/dockerfile ${path.module}/../../../docker
+            docker tag webserver:latest ${aws_ecr_repository.webserver.repository_url}:latest
+            docker push ${aws_ecr_repository.webserver.repository_url}:latest
+        EOT
+    }
+}

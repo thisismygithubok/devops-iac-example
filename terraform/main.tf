@@ -75,10 +75,12 @@ module "db" {
     private_subnet_ids = module.vpc.private_subnet_ids
 }
 
-# ECR - Creates the ECR repo and lifecycle policy
+# ECR - Creates the ECR repo, lifecycle policy, and builds & pushes the image to ECR
 module "ecr" {
     source = "./modules/ecr"
     product_name = var.product_name
+    deploy_region = var.deploy_region
+    aws_cli_profile = var.aws_cli_profile
 }
 
 # ECS - Creates the ECS cluster, service, and task definition

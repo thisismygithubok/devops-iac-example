@@ -1,6 +1,14 @@
 # TMGM DevOps Challenge v3
 This is the necessary code for the TMGM DevOps Challenge v3
 
+## Improvements Since Submission
+Since submitting, there's several issues that I've caught and fixed/improved upon.
+- **Docker Image** - I assumed the ECS image would be built & pushed by a pipeline in another repo. But, if not in this case, I've included the build and push as a new job in the ECR module. HashiCorp **_does not_** recommend doing this though, and it should only be used if you can't use purpose-built solutions.
+- **DB Credentials** - If you've done a destroy, applying again will throw an error since secrets in AWS are soft-deleted for 30 days, and the credentials had a static name. This is remedied by using a random uuid identifier on the end of the secret name.
+
+## Further Improvement Ideas
+- **AWS EC2 AutoScaling IAM Role Check** - I'm sure there's some better way to check this automatically rather than manual toggle w/ the boolean. This is a resource that would ideally be managed separately at account setup maybe?
+
 ## Basic Goals
 
 ### Terraform Code
