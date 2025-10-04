@@ -1,5 +1,5 @@
 # DevOps IaC Example w/ Terraform and Ansible
-This is example code for using Terraform for IaC as well as some Ansible Playbooks
+This is example code for using Terraform for IaC as well as some Ansible Playbooks. This will create the necessary AWS resources for a simple apache webserver hosted both on EC2 and ECS via an ALB. The R53 for DNS is a dummy entry so is not accessible, and this only serves as a basic PoC for IaC via AWS using Terraform and Ansible.
 
 ## Basic Goals
 
