@@ -1,5 +1,5 @@
-# TMGM DevOps Challenge v3
-This is the necessary code for the TMGM DevOps Challenge v3
+# DevOps IaC Example w/ Terraform and Ansible
+This is example code for using Terraform for IaC as well as some Ansible Playbooks
 
 ## Basic Goals
 
